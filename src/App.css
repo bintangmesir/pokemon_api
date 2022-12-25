@@ -40,6 +40,11 @@ p {
   font-size: 0.75rem;
 }
 
+.input {
+  font-family: "pokemon_pixel_fonts", sans-serif !important;
+  font-size: 0.75rem;
+}
+
 .pokemon {
   overflow-x: hidden;
   -webkit-overflow-x: hidden;

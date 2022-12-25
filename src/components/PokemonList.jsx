@@ -88,7 +88,7 @@ function PokemonList() {
     e.preventDefault();
     if (search !== "") {
       const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${search}`
+        `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`
       );
 
       if (response.status === 404) {
@@ -123,9 +123,10 @@ function PokemonList() {
               <InputGroup size="md">
                 <Input
                   pr="4.5rem"
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value.toUpperCase())}
                   value={search}
                   bg="white"
+                  className="input"
                 />
                 <InputRightElement width="8rem">
                   <Button
