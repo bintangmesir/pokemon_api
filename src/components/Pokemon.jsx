@@ -12,7 +12,7 @@ const Pokemon = (props) => {
               {element?.id}. {element?.name} <br />
             </p>
             <BadgePokemon types={element?.types} />
-            <Image src={element?.sprites.front_default} />
+            <Image src={element.sprites?.front_default} />
           </Box>
         </Link>
       ))}

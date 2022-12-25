@@ -8,7 +8,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -40,21 +41,15 @@ p {
 }
 
 .pokemon {
-  height: 40vh;
-  overflow-y: auto;
   overflow-x: hidden;
-  -webkit-overflow-y: auto;
   -webkit-overflow-x: hidden;
   text-transform: uppercase;
   padding-top: 4px;
 }
 
 .pokemonDetail {
-  height: 64vh;
   overflow-x: auto;
-  overflow-y: auto;
   -webkit-overflow-x: auto;
-  -webkit-overflow-y: auto;
   text-transform: uppercase;
 }
 
@@ -66,19 +61,7 @@ p {
   padding: 12px;
 }
 
-.listPokemon:hover {
-  margin: -4px 0px;
-  border: 4px dashed #dd6b20;
-  box-sizing: border-box;
-}
-
 .pagination {
   display: flex;
   justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-  .container {
-    height: 100vh;
-  }
 }

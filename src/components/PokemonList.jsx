@@ -42,9 +42,13 @@ const Pagination = () => {
           <p>{"<"}</p>
         </Button>
       </Link>
-      <Box color="orange.800">
-        <h1>PokeDeh</h1>
-      </Box>
+      <Center>
+        <Link to={"/"}>
+          <Button size="sm" colorScheme="orange">
+            <p>PokeDeh</p>
+          </Button>
+        </Link>
+      </Center>
       <Link to={`/pokemon?page=${currentPage + 1}`}>
         <Button size="sm" onClick={() => moveTo("next")} colorScheme="orange">
           <p>{">"}</p>
@@ -56,12 +60,13 @@ const Pagination = () => {
 
 function PokemonList() {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
 
   const pokemonList = async (page) => {
-    const displayPerPage = 20;
-    const offset = (page - 1) * 20;
+    const displayPerPage = 10;
+    const offset = (page - 1) * 10;
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${displayPerPage}&offset=${offset}`
     );
@@ -81,9 +86,19 @@ function PokemonList() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${search}`);
-    const json = await response.json();
-    setData([json]);
+    if (search !== "") {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${search}`
+      );
+
+      if (response.status === 404) {
+        setError(true);
+      } else {
+        const json = await response.json();
+        setData([json]);
+        setError(false);
+      }
+    }
   };
 
   return (
@@ -128,8 +143,12 @@ function PokemonList() {
           <Pagination />
           <Box>
             {!data ? (
-              <Center>
+              <Center my={10}>
                 <p>Loading...</p>
+              </Center>
+            ) : error ? (
+              <Center my={10}>
+                <p>Data Not Found</p>
               </Center>
             ) : (
               <Pokemon pokemon={data} />

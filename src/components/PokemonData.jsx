@@ -12,14 +12,11 @@ import {
   Heading,
   Container,
 } from "@chakra-ui/react";
-import { useParams, useSearchParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import BadgePokemon from "./BadgePokemon";
 
-const Pagination = () => {
-  const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(
-    parseInt(searchParams.get("page") || 1)
-  );
+const Pagination = (props) => {
+  const [currentPage, setCurrentPage] = useState(parseInt(props.page));
 
   const moveTo = (direction) => {
     if (direction === "prev") {
@@ -42,9 +39,9 @@ const Pagination = () => {
         </Button>
       </Link>
       <Center>
-        <Link to={"/pokemon"}>
+        <Link to={"/"}>
           <Button size="sm" colorScheme="orange">
-            <p>Home</p>
+            <p>PokeDeh</p>
           </Button>
         </Link>
       </Center>
@@ -91,7 +88,7 @@ function PokemonData() {
         borderColor="gray.800"
       >
         <Box bg="yellow.100" px={8} py={6}>
-          <Pagination />
+          <Pagination page={pokemon?.id} />
           {loading ? (
             <Center>
               <p>Loading...</p>
