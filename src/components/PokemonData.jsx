@@ -15,8 +15,9 @@ import {
 import { useParams, Link } from "react-router-dom";
 import BadgePokemon from "./BadgePokemon";
 
-const Pagination = (props) => {
-  const [currentPage, setCurrentPage] = useState(props.page);
+const Pagination = () => {
+  const pokemonId = useParams();
+  const [currentPage, setCurrentPage] = useState(parseInt(pokemonId.id));
 
   const moveTo = (direction) => {
     if (direction === "prev") {
