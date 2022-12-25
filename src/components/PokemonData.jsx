@@ -17,7 +17,6 @@ import BadgePokemon from "./BadgePokemon";
 
 const Pagination = (props) => {
   const [currentPage, setCurrentPage] = useState(props.page);
-  console.log(currentPage);
 
   const moveTo = (direction) => {
     if (direction === "prev") {
