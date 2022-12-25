@@ -40,7 +40,7 @@ p {
 }
 
 .pokemon {
-  height: 19rem;
+  height: auto;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-y: auto;
@@ -50,7 +50,7 @@ p {
 }
 
 .pokemonDetail {
-  height: 30rem;
+  height: auto;
   overflow-x: auto;
   overflow-y: auto;
   -webkit-overflow-x: auto;
