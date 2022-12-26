@@ -138,7 +138,7 @@ function PokemonData() {
                       />
                     </HStack>
                   </Center>
-                  <Box>
+                  <Box w="max-content">
                     <Table variant="unstyled">
                       <Tbody>
                         <Tr>
