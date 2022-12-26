@@ -59,6 +59,8 @@ function PokemonData() {
   const pokemonId = useParams();
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [species, setSpecies] = useState(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -68,6 +70,18 @@ function PokemonData() {
       );
       const data = await response.json();
       setPokemon(data);
+
+      const responseLocation = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonId.id}/encounters`
+      );
+      const dataLocation = await responseLocation.json();
+      setLocation(dataLocation);
+
+      const responseSpecies = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${pokemonId.id}/`
+      );
+      const dataSpecies = await responseSpecies.json();
+      setSpecies(dataSpecies);
       setLoading(false);
     };
 
@@ -98,27 +112,30 @@ function PokemonData() {
                 <>
                   <Heading as="h3" size="md">
                     <Center my={4}>
-                      <h1>{pokemon.name}</h1>
+                      <h1>{pokemon?.name}</h1>
                     </Center>
                   </Heading>
                   <Center>
-                    <BadgePokemon types={pokemon.types} />
+                    <BadgePokemon types={pokemon?.types} />
                   </Center>
                   <Center>
                     <HStack>
                       <Image
                         boxSize="128px"
-                        src={pokemon.sprites.front_default}
+                        src={pokemon.sprites?.front_default}
                       />
                       <Image
                         boxSize="128px"
-                        src={pokemon.sprites.back_default}
+                        src={pokemon.sprites?.back_default}
                       />
                       <Image
                         boxSize="128px"
-                        src={pokemon.sprites.front_shiny}
+                        src={pokemon.sprites?.front_shiny}
                       />
-                      <Image boxSize="128px" src={pokemon.sprites.back_shiny} />
+                      <Image
+                        boxSize="128px"
+                        src={pokemon.sprites?.back_shiny}
+                      />
                     </HStack>
                   </Center>
                   <Box>
@@ -126,10 +143,18 @@ function PokemonData() {
                       <Tbody>
                         <Tr>
                           <Td>
+                            <p>Evolution From</p>
+                          </Td>
+                          <Td>
+                            <p>{species.evolves_from_species?.name}</p>
+                          </Td>
+                        </Tr>
+                        <Tr>
+                          <Td>
                             <p>Height</p>
                           </Td>
                           <Td>
-                            <p>{pokemon.height}</p>
+                            <p>{pokemon?.height}</p>
                           </Td>
                         </Tr>
                         <Tr>
@@ -137,7 +162,7 @@ function PokemonData() {
                             <p>Weight</p>
                           </Td>
                           <Td>
-                            <p>{pokemon.weight}</p>
+                            <p>{pokemon?.weight}</p>
                           </Td>
                         </Tr>
                         <Tr>
@@ -145,7 +170,7 @@ function PokemonData() {
                             <p>Base Experience</p>
                           </Td>
                           <Td>
-                            <p>{pokemon.base_experience}</p>
+                            <p>{pokemon?.base_experience}</p>
                           </Td>
                         </Tr>
                         <Tr>
@@ -155,7 +180,7 @@ function PokemonData() {
                           <Td>
                             {pokemon.abilities.map((pokemon, index) => (
                               <p key={index}>
-                                {pokemon.ability.name} <br />
+                                {pokemon.ability?.name} <br />
                               </p>
                             ))}
                           </Td>
@@ -167,8 +192,19 @@ function PokemonData() {
                           <Td>
                             {pokemon.stats.map((pokemon, index) => (
                               <p key={index}>
-                                {pokemon.stat.name} : {pokemon.base_stat} <br />
+                                {pokemon.stat?.name} : {pokemon?.base_stat}{" "}
+                                <br />
                               </p>
+                            ))}
+                          </Td>
+                        </Tr>
+                        <Tr>
+                          <Td>
+                            <p>Location</p>
+                          </Td>
+                          <Td>
+                            {location.map((element, index) => (
+                              <p key={index}>{element.location_area?.name}</p>
                             ))}
                           </Td>
                         </Tr>
