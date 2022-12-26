@@ -28,8 +28,8 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <audio autoplay loop>
-      <source src="/assets/music/bgm.mp3" type="audio/mpeg" />
+    <audio id="autoplay" loop hidden>
+      <source src="/assets/music/bgm.mp3" type="audio/mp3" />
     </audio>
     <div id="root"></div>
     <!--
@@ -42,5 +42,10 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      window.onload = function () {
+        document.getElementById("autoplay").play();
+      };
+    </script>
   </body>
 </html>
