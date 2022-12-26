@@ -5,67 +5,24 @@ import {
   Image,
   Center,
   Button,
-  HStack,
   Container,
   InputGroup,
   FormControl,
   InputRightElement,
 } from "@chakra-ui/react";
 import Pokemon from "./Pokemon";
-import { useSearchParams, Link } from "react-router-dom";
-
-const Pagination = () => {
-  const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(
-    parseInt(searchParams.get("page") || 1)
-  );
-
-  const moveTo = (direction) => {
-    if (direction === "prev") {
-      setCurrentPage(currentPage - 1);
-    } else {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  return (
-    <HStack className="pagination" mb={8}>
-      <Link
-        to={currentPage === 2 ? "/pokemon" : `/pokemon?page=${currentPage - 1}`}
-      >
-        <Button
-          size="sm"
-          isDisabled={currentPage === 1}
-          onClick={() => moveTo("prev")}
-          colorScheme="orange"
-        >
-          <p>{"<"}</p>
-        </Button>
-      </Link>
-      <Center>
-        <Link to={"/"}>
-          <Button size="sm" colorScheme="orange">
-            <p>PokeDeh</p>
-          </Button>
-        </Link>
-      </Center>
-      <Link to={`/pokemon?page=${currentPage + 1}`}>
-        <Button size="sm" onClick={() => moveTo("next")} colorScheme="orange">
-          <p>{">"}</p>
-        </Button>
-      </Link>
-    </HStack>
-  );
-};
+import { useSearchParams } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function PokemonList() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
+  const [displayPerPage, setDisplayPerPage] = useState(10);
 
   const pokemonList = async (page) => {
-    const displayPerPage = 10;
+    setDisplayPerPage(displayPerPage + 10);
     const offset = (page - 1) * 10;
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${displayPerPage}&offset=${offset}`
@@ -81,7 +38,10 @@ function PokemonList() {
 
   useEffect(() => {
     const page = parseInt(searchParams.get("page") || 1);
-    pokemonList(page);
+    setTimeout(() => {
+      pokemonList(page);
+    }, 1500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const handleSubmit = async (e) => {
@@ -119,7 +79,7 @@ function PokemonList() {
             <Image src="/assets/img/pokemon.svg" />
           </Center>
           <form onSubmit={handleSubmit}>
-            <FormControl boxShadow="md" my={6}>
+            <FormControl boxShadow="md" my={8}>
               <InputGroup size="md">
                 <Input
                   pr="4.5rem"
@@ -141,7 +101,6 @@ function PokemonList() {
               </InputGroup>
             </FormControl>
           </form>
-          <Pagination />
           <Box>
             {!data ? (
               <Center my={10}>
@@ -152,7 +111,18 @@ function PokemonList() {
                 <p>Data Not Found</p>
               </Center>
             ) : (
-              <Pokemon pokemon={data} />
+              <InfiniteScroll
+                dataLength={data.length}
+                next={() => {
+                  setTimeout(() => {
+                    pokemonList() || handleSubmit();
+                  }, 1750);
+                }}
+                hasMore={true}
+                endMessage={<p>Pikachu...</p>}
+              >
+                <Pokemon pokemon={data} />
+              </InfiniteScroll>
             )}
           </Box>
         </Box>

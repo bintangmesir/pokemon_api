@@ -40,7 +40,7 @@ const Pagination = () => {
         </Button>
       </Link>
       <Center>
-        <Link to={"/"}>
+        <Link to={"/pokemon"}>
           <Button size="sm" colorScheme="orange">
             <p>PokeDeh</p>
           </Button>
