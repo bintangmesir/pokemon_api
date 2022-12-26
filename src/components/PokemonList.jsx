@@ -11,7 +11,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import Pokemon from "./Pokemon";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 function PokemonList() {
@@ -76,7 +76,9 @@ function PokemonList() {
       >
         <Box bg="yellow.100" px={8} py={6}>
           <Center>
-            <Image src="/assets/img/pokemon.svg" />
+            <Link to={"/"}>
+              <Image src="/assets/img/pokemon.svg" />
+            </Link>
           </Center>
           <form onSubmit={handleSubmit}>
             <FormControl boxShadow="md" my={8}>
