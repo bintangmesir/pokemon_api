@@ -119,7 +119,7 @@ function PokemonData() {
                     <BadgePokemon types={pokemon?.types} />
                   </Center>
                   <Center>
-                    <HStack>
+                    <HStack my={10}>
                       <Image
                         boxSize="128px"
                         src={pokemon.sprites?.front_default}
@@ -138,7 +138,7 @@ function PokemonData() {
                       />
                     </HStack>
                   </Center>
-                  <Box w="max-content">
+                  <Box w="max-content" mb={8}>
                     <Table variant="unstyled">
                       <Tbody>
                         <Tr>

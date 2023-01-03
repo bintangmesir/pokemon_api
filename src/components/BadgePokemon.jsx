@@ -15,7 +15,7 @@ export default function BadgePokemon(props) {
               : badge.type?.name === "water"
               ? "blue.400"
               : badge.type?.name === "bug"
-              ? "green.500"
+              ? "green.600"
               : badge.type?.name === "flying"
               ? "purple.200"
               : badge.type?.name === "electric"

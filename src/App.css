@@ -1,6 +1,7 @@
 @font-face {
   font-family: "pokemon_pixel_fonts";
   src: url("/public/assets/fonts/Pokemon_classic.ttf") format("truetype");
+  font-display: block;
 }
 
 #root {

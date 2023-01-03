@@ -58,13 +58,15 @@ function PokemonList() {
         setData([json]);
         setError(false);
       }
+    } else {
+      pokemonList(1);
     }
   };
 
   return (
     <Center className="wrapper" py={[0, 10]}>
       <Container
-        maxW="container.sm"
+        maxW="container.md"
         boxShadow="dark-lg"
         px={2}
         py={8}
@@ -75,7 +77,7 @@ function PokemonList() {
         className="container"
       >
         <Box bg="yellow.100" px={8} py={6}>
-          <Center>
+          <Center py={8}>
             <Link to={"/"}>
               <Image src="/assets/img/pokemon.svg" />
             </Link>
@@ -121,6 +123,13 @@ function PokemonList() {
                   }, 1750);
                 }}
                 hasMore={true}
+                loader={
+                  data.length > 1 ? (
+                    <Center my={10}>
+                      <p>Loading...</p>
+                    </Center>
+                  ) : null
+                }
                 endMessage={<p>Pikachu...</p>}
               >
                 <Pokemon pokemon={data} />
